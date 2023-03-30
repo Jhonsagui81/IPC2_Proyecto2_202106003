@@ -7,6 +7,11 @@
          <nombreElemento>Hidrógeno</nombreElemento>
       </elemento>
       <elemento>
+         <numeroAtomico>14</numeroAtomico>
+         <simbolo>Si</simbolo>
+         <nombreElemento>Silicio</nombreElemento>
+      </elemento>
+      <elemento>
          <numeroAtomico>2</numeroAtomico>
          <simbolo>He</simbolo>
          <nombreElemento>Helio</nombreElemento>
@@ -65,11 +70,6 @@
          <numeroAtomico>13</numeroAtomico>
          <simbolo>Al</simbolo>
          <nombreElemento>Aluminio</nombreElemento>
-      </elemento>
-      <elemento>
-         <numeroAtomico>14</numeroAtomico>
-         <simbolo>Si</simbolo>
-         <nombreElemento>Silicio</nombreElemento>
       </elemento>
       <elemento>
          <numeroAtomico>15</numeroAtomico>

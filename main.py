@@ -11,10 +11,22 @@ from TDA.ListaPines import ListaPines
 
 #Varibale global
 ruta = ""
+list_Elements = ListaElementos()
 
+#implementaran durante ejecucion 
+ventana_menu = tk.Tk()
+
+
+#menu Gestion Elementos
+text_area = tk.Text(ventana_menu)
+label = tk.Frame(ventana_menu)
+caja1 = tk.Entry(label)
+caja2 = tk.Entry(label)
+caja3 = tk.Entry(label)
 
 def AbrirArchivo():
     contador_pin = 0
+    global list_Elements
     global ruta
 
     ruta = FileDialog.askopenfilename(
@@ -35,7 +47,6 @@ def AbrirArchivo():
             listaElemtsConfig = confi.getElementsByTagName("listaElementos")
             for ele in listaElemtsConfig:
                 #Lista de elementos 
-                list_Elements = ListaElementos()
                 #Lectura - elementos 
                 elementConfig = ele.getElementsByTagName("elemento")
                 for data in elementConfig:
@@ -49,6 +60,8 @@ def AbrirArchivo():
                     valor_elementoCofig = str(nombre_elementCofig[0].firstChild.nodeValue)
                     #Insertarlos en Lista - listasimple
                     list_Elements.IncertarElemento(valor_no_atomico, valor_simbolo, valor_elementoCofig)
+                    
+
 
             #Lectura - ListaMaquinas 
             listaMaquinasConfig = confi.getElementsByTagName("listaMaquinas")
@@ -114,91 +127,135 @@ def AbrirArchivo():
                     #Insertar dato Compuesto - listasimple  (nombre, listasimple)
                     lista_compuesto.Insertar(valor_nombreCompuesto, list_elemt_compuesto)
 
+def ListElementos():
+    #para limpiar Pantalla
+    label.grid_forget()
 
+    #Funcionalidad 
+    text_area.delete(1.0, tk.END)
+    list_Elements.OrdenarElementos()
+    texto = list_Elements.Impimir()
+    text_area.insert(1.0, texto)
+    text_area.pack()
 
+def AgregarElemento():
+    atomi=caja1.get()
+    simb=caja2.get()
+    name=caja3.get()
+    list_Elements.IncertarElemento(atomi,simb, name)
+    list_Elements.OrdenarElementos()
+    
 
+def VentanaAgregarElemento():
+    text_area.pack_forget()
+    
+    # Crear etiquetas
+    etiqueta1 = tk.Label(label, text="Numero Atomico:")
+    etiqueta1.grid(row=0, column=0)
 
-# Crear una ventana
-ventana_principal = tk.Tk()
+    etiqueta2 = tk.Label(label, text="Simbolo Elemento:")
+    etiqueta2.grid(row=1, column=0)
 
-# Establecer el tamaño de la ventana principal
-ventana_principal.geometry("800x600")
-ventana_principal.title("Bienvenido")
+    etiqueta3 = tk.Label(label, text="Nombre Elemento:")
+    etiqueta3.grid(row=2, column=0)
+    
+    # Crear cajas de texto
+    caja1.grid(row=0, column=1)
+    caja2.grid(row=1, column=1)
+    caja3.grid(row=2, column=1)
 
-# Crear un canvas y mostrar una imagen en él
+    #Crear boton
+    add_button = tk.Button(label, text="Agregar Elemento",bg="Green" ,command=AgregarElemento)
+    add_button.grid(row=1, column=2)
 
-imagen = tk.PhotoImage(file="./imagen/Sin.png")  #REcomendable 
-ancho = imagen.width()
-alto = imagen.height()
+    #Incorporar Frame en ventana
+    label.grid()
 
-canvas = tk.Canvas(ventana_principal, width=ancho, height=alto)
-canvas.create_image(0, 0, anchor=tk.NW, image=imagen)
-canvas.pack(fill=tk.BOTH, expand=True)
+def Compuesto():
+    text_area.pack_forget()
+    label.grid_forget()
 
-# Crear un botón para iniciar el programa
-def iniciar_programa():
-    ventana_principal.destroy()
-    mostrar_menu()
+# # Crear una ventana
+# ventana_principal = tk.Tk()
 
-boton_iniciar = tk.Button(ventana_principal, text="Iniciar Programa",bg="Green", bd=5, command=iniciar_programa)
-boton_iniciar.pack(side=tk.BOTTOM, fill=tk.X)
+# # Establecer el tamaño de la ventana principal
+# ventana_principal.geometry("800x600")
+# ventana_principal.title("Bienvenido")
+
+# # Crear un canvas y mostrar una imagen en él
+
+# imagen = tk.PhotoImage(file="./imagen/Sin.png")  #REcomendable 
+# ancho = imagen.width()
+# alto = imagen.height()
+
+# canvas = tk.Canvas(ventana_principal, width=ancho, height=alto)
+# canvas.create_image(0, 0, anchor=tk.NW, image=imagen)
+# canvas.pack(fill=tk.BOTH, expand=True)
+
+# # Crear un botón para iniciar el programa
+# def iniciar_programa():
+#     ventana_principal.destroy()
+#     mostrar_menu()
+
+# boton_iniciar = tk.Button(ventana_principal, text="Iniciar Programa",bg="Green", bd=5, command=iniciar_programa)
+# boton_iniciar.pack(side=tk.BOTTOM, fill=tk.X)
 
 # Función para mostrar la ventana del menú
-def mostrar_menu():
-    # Crear una nueva ventana
-    ventana_menu = tk.Tk()
 
-    #Establecer el tamano de la ventana secundaria 
-    ventana_menu.geometry("800x600")
-    ventana_menu.title("Menu Principal")
+# Crear una nueva ventana
 
-    # Crear una barra de menú
-    barra_menu = tk.Menu(ventana_menu)
+
+#Establecer el tamano de la ventana secundaria 
+ventana_menu.geometry("800x600")
+ventana_menu.title("Menu Principal")
+
+# Crear una barra de menú
+barra_menu = tk.Menu(ventana_menu)
     
     
-    # Crear las opciones del menú
-    opcion1 = tk.Menu(barra_menu, tearoff=0)
-    opcion1.add_command(label="Abrir", command=AbrirArchivo)
+# Crear las opciones del menú
+opcion1 = tk.Menu(barra_menu, tearoff=0)
+opcion1.add_command(label="Abrir", command=AbrirArchivo)
 
-    opcion2 = tk.Menu(barra_menu, tearoff=0)
-    opcion2.add_command(label="Generar xml")
+opcion2 = tk.Menu(barra_menu, tearoff=0)
+opcion2.add_command(label="Generar xml")
 
-    opcion3 = tk.Menu(barra_menu, tearoff=0)
-    opcion3.add_command(label="Lista de Elementos")
-    opcion3.add_command(label="Agregar Nuevo Elemento")
+opcion3 = tk.Menu(barra_menu, tearoff=0)
+opcion3.add_command(label="Lista de Elementos", command=ListElementos)
+opcion3.add_command(label="Agregar Nuevo Elemento", command=VentanaAgregarElemento)
 
-    opcion4 = tk.Menu(barra_menu, tearoff=0)
-    opcionInterna = tk.Menu(opcion4, tearoff=0) #Para almacenar sub dentro de sub
-    opcion4.add_command(label="Lista Compuestos") #opcion 
-    opcion4.add_cascade(label="Analizar Compuesto", menu=opcionInterna) #opcion con subopciones
-    opcionInterna.add_command(label="Seleccionar Compuesto")
-    opcionInterna.add_command(label="Lista de Maquinas y Tiempos")
-    opcionInterna.add_command(label="Grafica de Instrucciones")
+opcion4 = tk.Menu(barra_menu, tearoff=0)
+opcionInterna = tk.Menu(opcion4, tearoff=0) #Para almacenar sub dentro de sub
+opcion4.add_command(label="Lista Compuestos", command=Compuesto) #opcion 
+opcion4.add_cascade(label="Analizar Compuesto", menu=opcionInterna) #opcion con subopciones
+opcionInterna.add_command(label="Seleccionar Compuesto")
+opcionInterna.add_command(label="Lista de Maquinas y Tiempos")
+opcionInterna.add_command(label="Grafica de Instrucciones")
 
-    opcion5 = tk.Menu(barra_menu, tearoff=0)
-    opcion5.add_command(label="Grafica de Maquinas")
+opcion5 = tk.Menu(barra_menu, tearoff=0)
+opcion5.add_command(label="Grafica de Maquinas")
 
-    opcion6 = tk.Menu(barra_menu, tearoff=0)
-    opcion6.add_cascade(label="Acerca de...")
+opcion6 = tk.Menu(barra_menu, tearoff=0)
+opcion6.add_cascade(label="Acerca de...")
 
     
     # opcionInterna.add_command(label="OpcionInterna")
     # Agregar las opciones al menú.
-    barra_menu.add_cascade(label="Cargar XML", menu=opcion1)
-    barra_menu.add_cascade(label="Generar XML", menu=opcion2)
-    barra_menu.add_cascade(label="Gestionar Elementos", menu=opcion3)
-    barra_menu.add_cascade(label="Gestionar Compuestos", menu=opcion4)
-    barra_menu.add_cascade(label="Gestionar Maquinas", menu=opcion5)
-    barra_menu.add_cascade(label="Ayuda", menu=opcion6)
+barra_menu.add_cascade(label="Cargar XML", menu=opcion1)
+barra_menu.add_cascade(label="Generar XML", menu=opcion2)
+barra_menu.add_cascade(label="Gestionar Elementos", menu=opcion3)
+barra_menu.add_cascade(label="Gestionar Compuestos", menu=opcion4)
+barra_menu.add_cascade(label="Gestionar Maquinas", menu=opcion5)
+barra_menu.add_cascade(label="Ayuda", menu=opcion6)
 
     #Para opciones Internas
     # opcion6.add_cascade(label="Ayuda", menu = opcionInterna)
     
     # Mostrar la barra de menú en la ventana
-    ventana_menu.config(menu=barra_menu)
+ventana_menu.config(menu=barra_menu)
 
     # Mostrar la ventana
-    ventana_menu.mainloop()
+ventana_menu.mainloop()
     
 # Ejecutar la ventana principal
-ventana_principal.mainloop()
+# ventana_principal.mainloop()
