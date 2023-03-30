@@ -3,8 +3,8 @@
     <listaElementos>
         <elemento>
             <numeroAtomico>45</numeroAtomico>
-            <simbolo>O</simbolo>
-            <nombreElemento>Oxigeno</nombreElemento>
+            <simbolo>He</simbolo>
+            <nombreElemento>Hierro</nombreElemento>
         </elemento>
         <elemento>
             <numeroAtomico>35</numeroAtomico>
@@ -12,7 +12,7 @@
             <nombreElemento>Oro</nombreElemento>
         </elemento>
         <elemento>
-            <numeroAtomico>45</numeroAtomico>
+            <numeroAtomico>35</numeroAtomico>
             <simbolo>O</simbolo>
             <nombreElemento>Oxigeno</nombreElemento>
         </elemento>
@@ -21,73 +21,61 @@
     <listaMaquinas>
         <Maquina>
             <nombre>Maquina1</nombre>
-            <numeroPines>2</numeroPines>
+            <numeroPines>3</numeroPines>
             <numeroElementos>5</numeroElementos>
             <pin>
                 <elementos>
                     <elemento>Au</elemento>
                     <elemento>O</elemento>
-                    <elemento>N</elemento>
                     <elemento>He</elemento>
-                    <elemento>B</elemento>
+                    <elemento>br</elemento>
+                    <elemento>ew</elemento>
                 </elementos>
             </pin>
             <pin>
                 <elementos>
-                    <elemento>Mg</elemento>
-                    <elemento>Ti</elemento>
+                    <elemento>2</elemento>
+                    <elemento>23</elemento>
+                    <elemento>H4</elemento>
+                    <elemento>b46r</elemento>
+                    <elemento>e2w</elemento>
+                </elementos>
+            </pin>
+            <pin>
+                <elementos>
+                    <elemento>Br</elemento>
+                    <elemento>OR</elemento>
+                    <elemento>OS</elemento>
                     <elemento>F</elemento>
-                    <elemento>H</elemento>
-                    <elemento>So</elemento>
+                    <elemento>Fi</elemento>
                 </elementos>
             </pin>
         </Maquina>
-        <Maquina>
-            <nombre>Maquina3</nombre>
-            <numeroPines>2</numeroPines>
-            <numeroElementos>5</numeroElementos>
-            <pin>
-                <elementos>
-                    <elemento>Au</elemento>
-                    <elemento>O</elemento>
-                    <elemento>N</elemento>
-                    <elemento>He</elemento>
-                    <elemento>B</elemento>
-                </elementos>
-            </pin>
-            <pin>
-                <elementos>
-                    <elemento>Mg</elemento>
-                    <elemento>Ti</elemento>
-                    <elemento>F</elemento>
-                    <elemento>H</elemento>
-                    <elemento>So</elemento>
-                </elementos>
-            </pin>
-        </Maquina>
+        
+        
     </listaMaquinas>
 
     <listaCompuestos>
         <compuesto>
             <nombre>nombredelcompuestoaFormar</nombre>
             <elementos>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
+                <elemento>He</elemento>
+                <elemento>He</elemento>
+                <elemento>He</elemento>
+                <elemento>He</elemento>
+                <elemento>He</elemento>
+                <elemento>H</elemento>
             </elementos>
         </compuesto>
         <compuesto>
             <nombre>nombredelcompuestoaFormar</nombre>
             <elementos>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
-                <elemento>SimbolodelElemento</elemento>
+                <elemento>Au</elemento>
+                <elemento>Au</elemento>
+                <elemento>A</elemento>
+                <elemento>Au</elemento>
+                <elemento>u</elemento>
+                <elemento>Au</elemento>
             </elementos>
         </compuesto>
         <compuesto>

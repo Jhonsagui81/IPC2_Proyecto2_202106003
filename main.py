@@ -1,10 +1,20 @@
 import tkinter as tk
 from tkinter import filedialog as FileDialog
+from xml.dom import minidom
+
+from TDA.ListaElementos import ListaElementos
+from TDA.ListaMaquinas import ListaMaquinas
+from TDA.ListaElementPines import ListaElementPin
+from TDA.ListaCompuestos import ListaCompuestos
+from TDA.ListElementCompuesto import ListaElemtosCompuestos
+from TDA.ListaPines import ListaPines
 
 #Varibale global
 ruta = ""
 
+
 def AbrirArchivo():
+    contador_pin = 0
     global ruta
 
     ruta = FileDialog.askopenfilename(
@@ -14,14 +24,98 @@ def AbrirArchivo():
         ),
         title= "Abrir un fichero"
     )
-    ##PENDIENTE ESTA ACCION 
-    # if ruta != "":
-    #     fichero = open(ruta, 'r')
-    #     contenido = fichero.read()
-    #     caja_texto.delete(1.0, 'end')
-    #     caja_texto.insert('insert', contenido)
-    #     fichero.close()
-    #     ventana.title(ruta + " - Mi editor")
+
+    if ruta != "":
+        doc = minidom.parse(str(ruta))
+        print("\n\t-----------Leyendo el documento---------------")
+        configuracion = doc.getElementsByTagName("CONFIG")
+        #Congig - ETIQUETA ROOT
+        for confi in configuracion:
+            #Lectura - ListaElementos
+            listaElemtsConfig = confi.getElementsByTagName("listaElementos")
+            for ele in listaElemtsConfig:
+                #Lista de elementos 
+                list_Elements = ListaElementos()
+                #Lectura - elementos 
+                elementConfig = ele.getElementsByTagName("elemento")
+                for data in elementConfig:
+                    #Lectura - datosElementos
+                    no_atomico = data.getElementsByTagName("numeroAtomico")
+                    simbolo = data.getElementsByTagName("simbolo")
+                    nombre_elementCofig = data.getElementsByTagName("nombreElemento")
+                    #obteniendo Valores
+                    valor_no_atomico = int(no_atomico[0].firstChild.nodeValue)
+                    valor_simbolo = str(simbolo[0].firstChild.nodeValue)
+                    valor_elementoCofig = str(nombre_elementCofig[0].firstChild.nodeValue)
+                    #Insertarlos en Lista - listasimple
+                    list_Elements.IncertarElemento(valor_no_atomico, valor_simbolo, valor_elementoCofig)
+
+            #Lectura - ListaMaquinas 
+            listaMaquinasConfig = confi.getElementsByTagName("listaMaquinas")
+            for lisMaq in listaMaquinasConfig:
+                #Lectura - Maquina
+                list_maquina = ListaMaquinas()
+                maquina = lisMaq.getElementsByTagName("Maquina")
+                for maqui in maquina:
+                    #Lectura - datosMaquina
+                    nombre_maquina = maqui.getElementsByTagName("nombre")
+                    no_pines = maqui.getElementsByTagName("numeroPines")
+                    no_elemen = maqui.getElementsByTagName("numeroElementos")
+                    #obteniendo valores
+                    valor_nombre_maquina = str(nombre_maquina[0].firstChild.nodeValue)
+                    valor_no_pines = int(no_pines[0].firstChild.nodeValue)
+                    valor_no_elemen = int(no_elemen[0].firstChild.nodeValue)
+                    #Insertar datos de la maquina - listaSimple
+                    #Lectura de pines
+                    lis_pin = maqui.getElementsByTagName("pin")
+                    #Creacion Lista pin
+                    lista_pin = ListaPines(valor_no_pines)
+                    for pin in lis_pin:
+                        contador_pin +=1
+                        #Creacion Lista elementos pim 
+                        lista_element_pines = ListaElementPin(contador_pin,valor_no_elemen)
+                        #Lectura - elementos Pin
+                        elementos_pin = pin.getElementsByTagName("elementos")
+                        #Insertar info pin - listasimple  (dentro listamaquina??)
+                        for dato_pin in elementos_pin:
+                            simb_elemen_pin = dato_pin.getElementsByTagName("elemento")
+                            #Obteniendo valores
+                            for lisELe in simb_elemen_pin:
+                                
+                                Val_simb_eleme_pin = str(lisELe.firstChild.nodeValue)
+                                lista_element_pines.Insertar(Val_simb_eleme_pin)
+                                #Insertar datos elementos -listadoble  (dentro listamquina??  o dento de listapin??)
+                        lista_pin.Insertar(contador_pin, lista_element_pines)
+                    list_maquina.InsertarMaquina(valor_nombre_maquina,valor_no_pines, valor_no_elemen, lista_pin) ##Banderiiin
+
+            #Lectura - ListaCompuestos
+            listaCompuestos = confi.getElementsByTagName("listaCompuestos")
+            for comp in listaCompuestos:
+                compuesto = comp.getElementsByTagName("compuesto")
+                #Creacion Lista compuestos
+                lista_compuesto = ListaCompuestos()
+                for compuest in compuesto:
+                    #Lectura - datos compuesto 
+                    nombreCompuesto = compuest.getElementsByTagName("nombre")
+                    #obteniendo valores
+                    valor_nombreCompuesto = str(nombreCompuesto[0].firstChild.nodeValue)
+                    #Lectura de Elementos del compuesto
+                    elementos_Compuesto = compuest.getElementsByTagName("elementos")
+                    #Creacion lista elementos Compuesto
+                    list_elemt_compuesto = ListaElemtosCompuestos()
+                    for ele_comp in elementos_Compuesto:
+                        #lectura - elemento 
+                        elemen_compues = ele_comp.getElementsByTagName("elemento")
+                        for ele_com in elemen_compues:
+                        #Obtener valores
+                            valor_elemen_compues = str(ele_com.firstChild.nodeValue)
+                            #Insertar elemento - listasimple
+                            list_elemt_compuesto.Insertar(valor_elemen_compues, list_Elements)
+                    #Insertar dato Compuesto - listasimple  (nombre, listasimple)
+                    lista_compuesto.Insertar(valor_nombreCompuesto, list_elemt_compuesto)
+
+
+
 
 
 # Crear una ventana
