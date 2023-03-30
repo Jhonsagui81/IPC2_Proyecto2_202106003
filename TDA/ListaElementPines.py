@@ -72,3 +72,11 @@ class ListaElementPin:
     def AproMax(self):
         if self.limite > self.maximo  or self.limite < self.maximo:
             self.aprobado = False
+
+    def GraficaElementos(self):
+        Aux = self.Inicio
+        texto = ""
+        while Aux != None:
+            texto += "\t\t\t\t\t<td>"+str(Aux.ObtenerSimbolo())+"</td>\n"
+            Aux = Aux.Siguiente
+        return texto

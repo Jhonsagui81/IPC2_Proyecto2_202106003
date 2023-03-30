@@ -21,3 +21,41 @@ class ListaMaquinas:
                 print("Se guardo maquina en else")
         else:
             print("maquina con problema, NO SE GUARDA")
+    
+    def Impimir(self):
+        Retorno = "La lista tiene: ["
+        if self.Inicio == None:
+            return "La lista está vacía."
+        Auxiliar = self.Inicio
+        while Auxiliar != None:
+            Retorno += str(Auxiliar.ObtenerNombre())
+            if Auxiliar.Siguiente != None:
+                Retorno += ", "
+            Auxiliar = Auxiliar.Siguiente
+        Retorno += "]"
+        return Retorno
+
+    def GenerarDibujo(self):
+        texto = "digraph {\n"
+        texto += "\ttb1 [\n"
+        texto += "\t\tshape=plaintext\n"
+        texto += "\t\tlabel=<\n"
+        texto += "\t\t\t<table border='0' cellborder='1' color='blue' cellspacing='0'>\n"
+        Auxiliar = self.Inicio
+        while Auxiliar != None:
+            texto += "\t\t\t\t<tr>\n"
+            texto += "\t\t\t\t\t<td colspan="'"'+str(Auxiliar.ObtenerNOElementos()+1)+'"'">"+str(Auxiliar.ObtenerNombre())+"</td>\n"
+            texto += "\t\t\t\t</tr>\n"
+            
+            text = Auxiliar.ObtenerListaPines().DibujoPines()
+            texto += text
+
+            texto += "\t\t\t\t<tr>\n"
+            texto += "\t\t\t\t\t<td colspan="'"'+str("")+str(Auxiliar.ObtenerNOElementos()+1)+'"'"> </td>\n"
+            texto += "\t\t\t\t</tr>\n"
+            Auxiliar = Auxiliar.Siguiente
+        texto += "\t\t\t</table>\n"
+        texto += "\t>];\n"
+        texto += "}\n"
+        
+        return texto

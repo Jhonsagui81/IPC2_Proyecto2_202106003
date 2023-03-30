@@ -12,6 +12,7 @@ from TDA.ListaPines import ListaPines
 #Varibale global
 ruta = ""
 list_Elements = ListaElementos()
+list_maquina = ListaMaquinas()
 
 #implementaran durante ejecucion 
 ventana_menu = tk.Tk()
@@ -24,6 +25,7 @@ caja1 = tk.Entry(label)
 caja2 = tk.Entry(label)
 caja3 = tk.Entry(label)
 
+#MENU GESTION ELEMENTOS 
 def AbrirArchivo():
     contador_pin = 0
     global list_Elements
@@ -67,9 +69,10 @@ def AbrirArchivo():
             listaMaquinasConfig = confi.getElementsByTagName("listaMaquinas")
             for lisMaq in listaMaquinasConfig:
                 #Lectura - Maquina
-                list_maquina = ListaMaquinas()
+                
                 maquina = lisMaq.getElementsByTagName("Maquina")
                 for maqui in maquina:
+                    contador_pin = 0
                     #Lectura - datosMaquina
                     nombre_maquina = maqui.getElementsByTagName("nombre")
                     no_pines = maqui.getElementsByTagName("numeroPines")
@@ -145,10 +148,9 @@ def AgregarElemento():
     list_Elements.IncertarElemento(atomi,simb, name)
     list_Elements.OrdenarElementos()
     
-
 def VentanaAgregarElemento():
     text_area.pack_forget()
-    
+
     # Crear etiquetas
     etiqueta1 = tk.Label(label, text="Numero Atomico:")
     etiqueta1.grid(row=0, column=0)
@@ -171,10 +173,15 @@ def VentanaAgregarElemento():
     #Incorporar Frame en ventana
     label.grid()
 
+#MENU GESTION COMPUESTOS 
 def Compuesto():
     text_area.pack_forget()
     label.grid_forget()
 
+#MENU GESTION DE MAQUINAS
+def graficaMaquinas():
+    tec = list_maquina.GenerarDibujo()
+    print(tec)
 # # Crear una ventana
 # ventana_principal = tk.Tk()
 
@@ -233,7 +240,7 @@ opcionInterna.add_command(label="Lista de Maquinas y Tiempos")
 opcionInterna.add_command(label="Grafica de Instrucciones")
 
 opcion5 = tk.Menu(barra_menu, tearoff=0)
-opcion5.add_command(label="Grafica de Maquinas")
+opcion5.add_command(label="Grafica de Maquinas", command=graficaMaquinas)
 
 opcion6 = tk.Menu(barra_menu, tearoff=0)
 opcion6.add_cascade(label="Acerca de...")

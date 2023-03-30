@@ -48,7 +48,15 @@ class ListaPines:
     def AproMax(self):
         if self.limite > self.Pines  or self.limite < self.Pines:
             self.aprobacion = False
-        # NuevoNodo = NodoPines()
-        ##if validar si se repite elemento en el pin 
-        ##validar el numero maximo de elementos 
-        ##validar si existe elemento en otro pin 
+
+    def DibujoPines(self):
+        texto = ""
+        Auxiliar = self.Inicio
+        while Auxiliar != None:
+            texto += "\t\t\t\t<tr>\n"
+            texto += "\t\t\t\t\t<td>"+"Pin "+str(Auxiliar.ObtenerId())+"</td>\n"
+            text = Auxiliar.ObtenerListaElementos().GraficaElementos()
+            texto += text
+            texto += "\t\t\t\t</tr>\n"
+            Auxiliar = Auxiliar.Siguiente
+        return texto
