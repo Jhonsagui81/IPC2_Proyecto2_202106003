@@ -1,29 +1,36 @@
 import tkinter as tk
+from tkinter import ttk
 
-# Crear ventana
+# Crear la ventana principal
 ventana = tk.Tk()
-ventana.title("Ejemplo de ventana con cajas de texto y etiquetas a un lado")
 
-# Crear etiquetas
-etiqueta1 = tk.Label(ventana, text="Parámetro 1:")
-etiqueta1.grid(row=0, column=0)
+# Establecer el título de la ventana principal
+ventana.title("Ejemplo de interfaz con Tkinter")
 
-etiqueta2 = tk.Label(ventana, text="Parámetro 2:")
-etiqueta2.grid(row=1, column=0)
+# Crear la etiqueta del título
+titulo = tk.Label(ventana, text="Opciones:", font=("Arial", 14))
+titulo.grid(row=0, column=0, padx=10, pady=10, sticky="we")
 
-etiqueta3 = tk.Label(ventana, text="Parámetro 3:")
-etiqueta3.grid(row=2, column=0)
+# Crear el combobox
+opciones = ["Opción 1", "Opción 2", "Opción 3", "Opción 4"]
+combo = ttk.Combobox(ventana, values=opciones, font=("Arial", 12))
+combo.grid(row=1, column=0, padx=10, pady=10, sticky="we")
 
-# Crear cajas de texto
-caja1 = tk.Entry(ventana)
-caja1.grid(row=0, column=1)
+# Crear los botones
+boton1 = tk.Button(ventana, text="Botón 1", font=("Arial", 12))
+boton1.grid(row=2, column=0, padx=10, pady=10)
 
-caja2 = tk.Entry(ventana)
-caja2.grid(row=1, column=1)
+boton2 = tk.Button(ventana, text="Botón 2", font=("Arial", 12))
+boton2.grid(row=2, column=1, padx=10, pady=10)
 
-caja3 = tk.Entry(ventana)
-caja3.grid(row=2, column=1)
+boton3 = tk.Button(ventana, text="Botón 3", font=("Arial", 12))
+boton3.grid(row=2, column=2, padx=10, pady=10)
 
-# Mostrar ventana
+# Ajustar la geometría de los botones
+ventana.grid_rowconfigure(2, weight=1)
+ventana.grid_columnconfigure((0,1,2), weight=1)
+
+# Iniciar el bucle principal de la ventana
 ventana.mainloop()
 
+# combo.configure(values=("Opcion1","opcion2"))    #FUNCIONA

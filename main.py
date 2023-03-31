@@ -1,8 +1,10 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import filedialog as FileDialog
 from xml.dom import minidom
 from tkPDFViewer import tkPDFViewer as pdf
 from tkinter import Toplevel
+import re
 
 from TDA.ListaElementos import ListaElementos
 from TDA.ListaMaquinas import ListaMaquinas
@@ -15,20 +17,31 @@ from TDA.ListaPines import ListaPines
 ruta = ""
 list_Elements = ListaElementos()
 list_maquina = ListaMaquinas()
+lista_compuesto = ListaCompuestos()
 
 #implementaran durante ejecucion 
 ventana_menu = tk.Tk()
-
-
-#menu Gestion Elementos
 text_area = tk.Text(ventana_menu)
+
+
+#MENU GESTION ELEMENTOS
 label = tk.Frame(ventana_menu)
 caja1 = tk.Entry(label)
 caja2 = tk.Entry(label)
 caja3 = tk.Entry(label)
 
+#MENU GESTION COMPUESTOS
+analizar = tk.Frame(ventana_menu)
+titulo = tk.Label(analizar, text="Compuestos Disponibles:", font=("Arial", 14))
+combo = ttk.Combobox(analizar, font=("Arial", 12))
 
-#MENU GESTION ELEMENTOS 
+AnalizaMaquina = tk.Frame(ventana_menu)
+tituloMaq = tk.Label(AnalizaMaquina, text="Maquinas y Tiempos", font=("Arial", 14))
+comboMaquina = ttk.Combobox(AnalizaMaquina, font=("Arial", 12))
+
+# boton2 = tk.Button(analizar, text="Botón 2", font=("Arial", 12))
+# boton3 = tk.Button(analizar, text="Botón 3", font=("Arial", 12))
+
 def AbrirArchivo():
     contador_pin = 0
     global list_Elements
@@ -112,7 +125,6 @@ def AbrirArchivo():
             for comp in listaCompuestos:
                 compuesto = comp.getElementsByTagName("compuesto")
                 #Creacion Lista compuestos
-                lista_compuesto = ListaCompuestos()
                 for compuest in compuesto:
                     #Lectura - datos compuesto 
                     nombreCompuesto = compuest.getElementsByTagName("nombre")
@@ -133,9 +145,12 @@ def AbrirArchivo():
                     #Insertar dato Compuesto - listasimple  (nombre, listasimple)
                     lista_compuesto.Insertar(valor_nombreCompuesto, list_elemt_compuesto)
 
+#MENU GESTION ELEMENTOS
 def ListElementos():
     #para limpiar Pantalla
     label.grid_forget()
+    analizar.grid_forget()
+    AnalizaMaquina.grid_forget()
 
     #Funcionalidad 
     text_area.delete(1.0, tk.END)
@@ -155,6 +170,9 @@ def AgregarElemento():
     
 def VentanaAgregarElemento():
     text_area.pack_forget()
+    analizar.grid_forget()
+    AnalizaMaquina.grid_forget()
+
 
     # Crear etiquetas
     etiqueta1 = tk.Label(label, text="Numero Atomico:")
@@ -179,14 +197,85 @@ def VentanaAgregarElemento():
     label.grid(row=2, column=2,)
 
 #MENU GESTION COMPUESTOS 
-def Compuesto():
+def ListaCompuestosVentana():
     text_area.pack_forget()
     label.grid_forget()
+    AnalizaMaquina.grid_forget()
+
+    #Funcionalidad 
+    text_area.delete(1.0, tk.END)
+    info = lista_compuesto.CompuestooLista()
+
+    text_area.insert(1.0, info)
+    text_area.pack(expand=True, fill="both")
+    text_area.pack_propagate(False)
+    # text_area.place(relx=0.5, rely=0.5, anchor="center")
+
+def VentanaAnalizarCompuesto():
+    #LIMPIAR cualquier cosa
+    text_area.pack_forget()
+    label.grid_forget()
+    AnalizaMaquina.grid_forget()
+    
+    # Crear la etiqueta del título
+    titulo.grid(row=0, column=0, padx=10, pady=10, sticky="we")
+
+    # Crear el combobox
+    
+    combo.grid(row=1, column=0, padx=10, pady=10, sticky="we")
+ 
+    text=lista_compuesto.Compuestos()
+    texto = text.split(",")
+    # nuevos = "opncio", "sdfaas"
+    # combo['values']+= str('('+text+')')
+
+    combo.configure(values=(texto))    #FUNCIONA
+
+    # Crear los botones
+    boton1 = tk.Button(analizar, text="Analizar Compuesto",background="green", font=("Arial", 12), command=VentanaMaquina)
+    boton1.grid(row=1, column=2, padx=10, pady=10)
+
+    # Ajustar la geometría de los botones
+    analizar.grid_rowconfigure(2, weight=1)
+    analizar.grid_columnconfigure((0,1,2), weight=1)
+    analizar.grid()
+
+def VentanaMaquina():
+    print("Hola culeros")
+    #LIMPIAR cualquier cosa
+    text_area.pack_forget()
+    label.grid_forget()
+    analizar.grid_forget()
+    
+    # Crear la etiqueta del título
+    tituloMaq.grid(row=0, column=0, padx=10, pady=10, sticky="we")
+
+    # Crear el combobox
+    
+    comboMaquina.grid(row=1, column=0, padx=10, pady=10, sticky="we")
+ 
+    # text=lista_compuesto.Compuestos()
+    # texto = text.split(",")
+    # # nuevos = "opncio", "sdfaas"
+    # # combo['values']+= str('('+text+')')
+
+    # combo.configure(values=(texto))    #FUNCIONA
+
+    # Crear los botones
+    boton1 = tk.Button(AnalizaMaquina, text="Ver Instrucciones",background="green", font=("Arial", 12), command=VentanaMaquina)
+    boton1.grid(row=1, column=2, padx=10, pady=10)
+
+
+
+    # Ajustar la geometría de los botones
+    AnalizaMaquina.grid_rowconfigure(2, weight=1)
+    AnalizaMaquina.grid_columnconfigure((0,1,2), weight=1)
+    AnalizaMaquina.grid()
+
 
 #MENU GESTION DE MAQUINAS
 v1 = pdf.ShowPdf()
 v2 = pdf.ShowPdf()
-
 
 def graficaMaquinas():
     #genera Dibujo
@@ -202,10 +291,13 @@ def graficaMaquinas():
     
     v2 = v1.pdf_view(ventana_maquina, pdf_location=open("/home/jhonatan/Descargas/grafica_maquinas.pdf","r"), width=77, height=100)
     v2.pack(pady=(0,0))
-
+    
 #TEMAS DE AYUDA
 def ayuda():
     label.grid_forget()
+    text_area.pack_forget()
+    analizar.grid_forget()
+    AnalizaMaquina.grid_forget()
     
     text_area.delete(1.0, tk.END)
     Retorno = "NOMBRE"+"\t\t\t"+"APELLIDO"+"\t\t\t"+"CARNET"+"\n\n"
@@ -246,7 +338,7 @@ def ayuda():
 
 
 #Establecer el tamano de la ventana secundaria 
-ventana_menu.geometry("800x600")
+ventana_menu.geometry("800x200")
 ventana_menu.title("Menu Principal")
 
 # Crear una barra de menú
@@ -265,12 +357,12 @@ opcion3.add_command(label="Lista de Elementos", command=ListElementos)
 opcion3.add_command(label="Agregar Nuevo Elemento", command=VentanaAgregarElemento)
 
 opcion4 = tk.Menu(barra_menu, tearoff=0)
-opcionInterna = tk.Menu(opcion4, tearoff=0) #Para almacenar sub dentro de sub
-opcion4.add_command(label="Lista Compuestos", command=Compuesto) #opcion 
-opcion4.add_cascade(label="Analizar Compuesto", menu=opcionInterna) #opcion con subopciones
-opcionInterna.add_command(label="Seleccionar Compuesto")
-opcionInterna.add_command(label="Lista de Maquinas y Tiempos")
-opcionInterna.add_command(label="Grafica de Instrucciones")
+# opcionInterna = tk.Menu(opcion4, tearoff=0) #Para almacenar sub dentro de sub
+opcion4.add_command(label="Lista Compuestos", command=ListaCompuestosVentana) #opcion 
+opcion4.add_command(label="Analizar Compuesto", command=VentanaAnalizarCompuesto) #opcion con subopciones
+# opcionInterna.add_command(label="Seleccionar Compuesto")
+# opcionInterna.add_command(label="Lista de Maquinas y Tiempos")
+# opcionInterna.add_command(label="Grafica de Instrucciones")
 
 opcion5 = tk.Menu(barra_menu, tearoff=0)
 opcion5.add_command(label="Grafica de Maquinas", command=graficaMaquinas)
