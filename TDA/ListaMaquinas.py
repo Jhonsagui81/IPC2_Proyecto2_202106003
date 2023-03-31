@@ -1,5 +1,6 @@
 from TDA.Nodo import *
 import os
+from tkinter import messagebox as MessageBox
 
 class ListaMaquinas:
     def __init__(self):
@@ -21,7 +22,7 @@ class ListaMaquinas:
                 self.Final = NuevoNodo
                 print("Se guardo maquina en else")
         else:
-            print("maquina con problema, NO SE GUARDA")
+            MessageBox.showinfo("Error","Maquina con problema, NO FUE ALMACENADA!")
     
     def Impimir(self):
         Retorno = "La lista tiene: ["
@@ -63,4 +64,9 @@ class ListaMaquinas:
         file.write(texto)
         file.close()
         os.system("dot -Tpdf /home/jhonatan/Descargas/grafica_maquinas.dot -o  /home/jhonatan/Descargas/grafica_maquinas.pdf")
-        
+
+    def AsignarCompuestoOperar(self, compuesto):
+        Aux = self.Inicio
+        while Aux != None:
+            Aux.ObtenerListaPines().AnalizarCOmpues(compuesto)
+            Aux = Aux.Siguiente

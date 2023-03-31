@@ -1,4 +1,5 @@
 from TDA.Nodo import NodoCompuestos
+from tkinter import messagebox as MessageBox
 
 class ListaCompuestos:
     def __init__(self):
@@ -15,12 +16,22 @@ class ListaCompuestos:
                 self.Limite +=1
                 print("ASIGNO COMPUESTO if")
             else:
-                self.Final.AsignarSiguiente(NuevoNodo)
-                self.Final = NuevoNodo
-                self.Limite += 1
-                print("ASIGNO COMPUESTO else")
+                Actual = self.Inicio
+                bandera = False
+                while Actual != None:
+                    if NuevoNodo.ObtenerNOmbre == Actual.ObtenerNOmbre():
+                        MessageBox.showinfo("Alerta","EL compuesto ya existe, No se guardara")
+                        bandera = True
+                        Actual = Actual.Siguiente
+                    else:
+                        Actual = Actual.Siguiente
+                if bandera == False:
+                    self.Limite += 1
+                    self.Final.AsignarSiguiente(NuevoNodo)
+                    self.Final = NuevoNodo
+                    print("Elemento aisgnado exitodo else")
         else:
-            print("Compuesto CON problema NOSE GUARDA")
+            MessageBox.showinfo("ERROR","Compuesto con problema NO FUE ALMACENADO")
 
     def CompuestooLista(self):
         Retorno = "COMPUESTO"+"\t\t\t\t\t"+"FORMULA"+"\n\n"
@@ -40,7 +51,15 @@ class ListaCompuestos:
         Texto = ""
         Auxiliar = self.Inicio
         while Auxiliar != None:
-            Texto += '"'+str(Auxiliar.ObtenerNOmbre())+'"'+","
+            Texto += str(Auxiliar.ObtenerNOmbre())+","
             Auxiliar = Auxiliar.Siguiente
         
         return Texto[0:-1]
+
+    def BuscarCompuesto(self, name):
+        Auxiliar = self.Inicio
+        while Auxiliar != None:
+            if name == Auxiliar.ObtenerNOmbre():
+                cadenaElementos = Auxiliar.ObtenerListaElementos()
+                return cadenaElementos
+            Auxiliar = Auxiliar.Siguiente

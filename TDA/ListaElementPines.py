@@ -1,4 +1,5 @@
 from TDA.Nodo import *
+from tkinter import messagebox as MessageBox
 
 class ListaElementPin:
 
@@ -13,11 +14,11 @@ class ListaElementPin:
     def Insertar(self, simbolo):
         NuevoNodo = NodoPinesElementos(simbolo)
         if self.ExisteElemento(NuevoNodo):
-            print("Este Elemento ya esta registrado en el pin ")
+            MessageBox.showinfo("ERROR","Este Elemento ya esta registrado en el pin ")
             self.aprobado = False
             return 
         if self.limite == self.maximo:
-            print("No se puede agregar mas elementos a este pin ")
+            MessageBox.showinfo("ERROR","Supero el numero de elementos soportados")
             self.aprobado = False
             return
         if self.Inicio == None:
@@ -26,7 +27,8 @@ class ListaElementPin:
             self.limite += 1
             print("agregado exitoso  if")
         else:
-            self.Final.AsignarSiguiente(NuevoNodo)
+            self.Final.Siguiente = NuevoNodo
+            NuevoNodo.Anterior = self.Final
             self.Final = NuevoNodo
             self.limite +=1 
             print("agregado exitoso  else")
@@ -81,3 +83,6 @@ class ListaElementPin:
             texto += "\t\t\t\t\t<td "+estilo+">"+str(Aux.ObtenerSimbolo())+"</td>\n"
             Aux = Aux.Siguiente
         return texto
+
+    def AnalizarCompuesto(self, compuesto):
+        pass

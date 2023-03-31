@@ -1,4 +1,5 @@
 from TDA.Nodo import *
+from tkinter import messagebox as MessageBox
 
 class ListaPines:
 
@@ -22,7 +23,7 @@ class ListaPines:
             while Aux != None:
                 if Aux.ObtenerListaElementos().CompararListas(NuevoNodo.ObtenerListaElementos()):
                     self.aprobacion = False
-                    print("HAY ELEMENTOS REPETIDOS ENTRE PINES  ")
+                    MessageBox.showinfo("Error!","HAY ELEMENTOS REPETIDOS ENTRE PINES  ")
                     banderin = True
                     return
                 else: 
@@ -62,3 +63,5 @@ class ListaPines:
             texto += "\t\t\t\t</tr>\n"
             Auxiliar = Auxiliar.Siguiente
         return texto
+    
+

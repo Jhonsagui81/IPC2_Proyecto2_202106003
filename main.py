@@ -199,7 +199,7 @@ def VentanaAgregarElemento():
 #MENU GESTION COMPUESTOS 
 def ListaCompuestosVentana():
     text_area.pack_forget()
-    label.grid_forget()
+    analizar.grid_forget()
     AnalizaMaquina.grid_forget()
 
     #Funcionalidad 
@@ -217,47 +217,50 @@ def VentanaAnalizarCompuesto():
     label.grid_forget()
     AnalizaMaquina.grid_forget()
     
-    # Crear la etiqueta del título
+    #incorporar la etiqueta del título
     titulo.grid(row=0, column=0, padx=10, pady=10, sticky="we")
 
-    # Crear el combobox
-    
+    # Incorporar el combobox
     combo.grid(row=1, column=0, padx=10, pady=10, sticky="we")
- 
+    
+
+
     text=lista_compuesto.Compuestos()
     texto = text.split(",")
-    # nuevos = "opncio", "sdfaas"
-    # combo['values']+= str('('+text+')')
 
     combo.configure(values=(texto))    #FUNCIONA
 
-    # Crear los botones
+    # combo.bind("<<ComboboxSelected>>", lambda _ : print(f"Mes pre-seleccionado '{combo.get()}'"))
+
+
+    #incorporar los botones
     boton1 = tk.Button(analizar, text="Analizar Compuesto",background="green", font=("Arial", 12), command=VentanaMaquina)
     boton1.grid(row=1, column=2, padx=10, pady=10)
 
-    # Ajustar la geometría de los botones
+    # Ajustar    la geometría de los botones
     analizar.grid_rowconfigure(2, weight=1)
     analizar.grid_columnconfigure((0,1,2), weight=1)
     analizar.grid()
 
 def VentanaMaquina():
-    print("Hola culeros")
+    
     #LIMPIAR cualquier cosa
     text_area.pack_forget()
     label.grid_forget()
     analizar.grid_forget()
     
+    #obtener lista de elementos del compuesto seleccionado 
+    res = combo.get()
+    print("se selecciona:" +res)
+    cadena = lista_compuesto.BuscarCompuesto(res)
+    print("Esto es lo que se tine que operar: "+cadena)
+    #Pasar lista de elemetntos a la maquina
+    list_maquina.AsignarCompuestoOperar(cadena)
+
     # Crear la etiqueta del título
     tituloMaq.grid(row=0, column=0, padx=10, pady=10, sticky="we")
-
     # Crear el combobox
-    
     comboMaquina.grid(row=1, column=0, padx=10, pady=10, sticky="we")
- 
-    # text=lista_compuesto.Compuestos()
-    # texto = text.split(",")
-    # # nuevos = "opncio", "sdfaas"
-    # # combo['values']+= str('('+text+')')
 
     # combo.configure(values=(texto))    #FUNCIONA
 

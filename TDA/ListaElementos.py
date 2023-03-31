@@ -1,4 +1,5 @@
 from TDA.Nodo import NodoElementos
+from tkinter import messagebox as MessageBox
 
 class ListaElementos:
     def __init__(self):
@@ -18,7 +19,7 @@ class ListaElementos:
             bandera = False
             while Actual != None:
                 if NuevoNodo.ObtenerNombre().lower() == Actual.ObtenerNombre().lower() or NuevoNodo.Obtner_Atomico() == Actual.Obtner_Atomico() or NuevoNodo.ObtenerSimbolo()  == Actual.ObtenerSimbolo():
-                    print("EL elemento esta repetido")
+                    MessageBox.showinfo("Alerta","EL elemento ya existe, No se guardara")
                     bandera = True
                     Actual = Actual.Siguiente
                 else:

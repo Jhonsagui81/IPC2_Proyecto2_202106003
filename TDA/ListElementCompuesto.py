@@ -1,4 +1,7 @@
 from TDA.Nodo import NodoListaElemtCompuesto
+from tkinter import messagebox as MessageBox
+
+
 
 class ListaElemtosCompuestos:
     def __init__(self):
@@ -25,7 +28,7 @@ class ListaElemtosCompuestos:
                 print("se asigno elemento. else")
         else:
             self.Aprobacion = False
-            print("Elemento no existe en lista original")
+            MessageBox.showinfo("ERROR","Elemento del compuesto no existe en lista original")
 
     def ElementosCompuesto(self):
         Retorno = ""
