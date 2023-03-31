@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import filedialog as FileDialog
 from xml.dom import minidom
+from tkPDFViewer import tkPDFViewer as pdf
+from tkinter import Toplevel
 
 from TDA.ListaElementos import ListaElementos
 from TDA.ListaMaquinas import ListaMaquinas
@@ -24,6 +26,7 @@ label = tk.Frame(ventana_menu)
 caja1 = tk.Entry(label)
 caja2 = tk.Entry(label)
 caja3 = tk.Entry(label)
+
 
 #MENU GESTION ELEMENTOS 
 def AbrirArchivo():
@@ -139,7 +142,9 @@ def ListElementos():
     list_Elements.OrdenarElementos()
     texto = list_Elements.Impimir()
     text_area.insert(1.0, texto)
-    text_area.pack()
+    text_area.pack(expand=True, fill="both")
+    text_area.pack_propagate(False)
+    # text_area.place(relx=0.5, rely=0.5, anchor="center")
 
 def AgregarElemento():
     atomi=caja1.get()
@@ -171,7 +176,7 @@ def VentanaAgregarElemento():
     add_button.grid(row=1, column=2)
 
     #Incorporar Frame en ventana
-    label.grid()
+    label.grid(row=2, column=2,)
 
 #MENU GESTION COMPUESTOS 
 def Compuesto():
@@ -179,9 +184,37 @@ def Compuesto():
     label.grid_forget()
 
 #MENU GESTION DE MAQUINAS
+v1 = pdf.ShowPdf()
+v2 = pdf.ShowPdf()
+
+
 def graficaMaquinas():
-    tec = list_maquina.GenerarDibujo()
-    print(tec)
+    #genera Dibujo
+    list_maquina.GenerarDibujo()
+    
+    #mostrar Dibujo Ventana
+    ventana_maquina = Toplevel(ventana_menu)
+    ventana_maquina.title("Maquinas Disponibles")
+    ventana_maquina.geometry("800x600+400+100")
+    ventana_maquina.configure(bg="White")
+    
+    v1.img_object_li.clear()
+    
+    v2 = v1.pdf_view(ventana_maquina, pdf_location=open("/home/jhonatan/Descargas/grafica_maquinas.pdf","r"), width=77, height=100)
+    v2.pack(pady=(0,0))
+
+#TEMAS DE AYUDA
+def ayuda():
+    label.grid_forget()
+    
+    text_area.delete(1.0, tk.END)
+    Retorno = "NOMBRE"+"\t\t\t"+"APELLIDO"+"\t\t\t"+"CARNET"+"\n\n"
+    Retorno += "Jhonatan Alexander"+"\t\t\t"+"Aguilar Reyes"+"\t\t\t"+"202106003"+"\n"
+    Retorno += "Link de la documentacion: ...pendiendte"
+    
+    text_area.insert(1.0, Retorno)
+    text_area.pack()
+
 # # Crear una ventana
 # ventana_principal = tk.Tk()
 
@@ -243,7 +276,7 @@ opcion5 = tk.Menu(barra_menu, tearoff=0)
 opcion5.add_command(label="Grafica de Maquinas", command=graficaMaquinas)
 
 opcion6 = tk.Menu(barra_menu, tearoff=0)
-opcion6.add_cascade(label="Acerca de...")
+opcion6.add_command(label="Acerca de...", command=ayuda)
 
     
     # opcionInterna.add_command(label="OpcionInterna")

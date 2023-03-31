@@ -51,10 +51,12 @@ class ListaPines:
 
     def DibujoPines(self):
         texto = ""
+        estilo = '''bgcolor="#3498db"'''
+        estilo2 = '''bgcolor="green"'''
         Auxiliar = self.Inicio
         while Auxiliar != None:
-            texto += "\t\t\t\t<tr>\n"
-            texto += "\t\t\t\t\t<td>"+"Pin "+str(Auxiliar.ObtenerId())+"</td>\n"
+            texto += "\t\t\t\t<tr "+estilo2+">\n"
+            texto += "\t\t\t\t\t<td "+estilo+">"+"Pin "+str(Auxiliar.ObtenerId())+"</td>\n"
             text = Auxiliar.ObtenerListaElementos().GraficaElementos()
             texto += text
             texto += "\t\t\t\t</tr>\n"

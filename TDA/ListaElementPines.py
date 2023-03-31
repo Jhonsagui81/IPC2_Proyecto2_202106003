@@ -75,8 +75,9 @@ class ListaElementPin:
 
     def GraficaElementos(self):
         Aux = self.Inicio
+        estilo = '''bgcolor="Cyan"'''
         texto = ""
         while Aux != None:
-            texto += "\t\t\t\t\t<td>"+str(Aux.ObtenerSimbolo())+"</td>\n"
+            texto += "\t\t\t\t\t<td "+estilo+">"+str(Aux.ObtenerSimbolo())+"</td>\n"
             Aux = Aux.Siguiente
         return texto

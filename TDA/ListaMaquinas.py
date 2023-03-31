@@ -1,4 +1,5 @@
 from TDA.Nodo import *
+import os
 
 class ListaMaquinas:
     def __init__(self):
@@ -36,6 +37,7 @@ class ListaMaquinas:
         return Retorno
 
     def GenerarDibujo(self):
+        estilo = '''bgcolor="#c04343"'''
         texto = "digraph {\n"
         texto += "\ttb1 [\n"
         texto += "\t\tshape=plaintext\n"
@@ -44,7 +46,7 @@ class ListaMaquinas:
         Auxiliar = self.Inicio
         while Auxiliar != None:
             texto += "\t\t\t\t<tr>\n"
-            texto += "\t\t\t\t\t<td colspan="'"'+str(Auxiliar.ObtenerNOElementos()+1)+'"'">"+str(Auxiliar.ObtenerNombre())+"</td>\n"
+            texto += "\t\t\t\t\t<td "+estilo+" colspan="'"'+str(Auxiliar.ObtenerNOElementos()+1)+'"'">"+str(Auxiliar.ObtenerNombre())+"</td>\n"
             texto += "\t\t\t\t</tr>\n"
             
             text = Auxiliar.ObtenerListaPines().DibujoPines()
@@ -57,5 +59,8 @@ class ListaMaquinas:
         texto += "\t\t\t</table>\n"
         texto += "\t>];\n"
         texto += "}\n"
+        file = open("/home/jhonatan/Descargas/grafica_maquinas.dot", "w")
+        file.write(texto)
+        file.close()
+        os.system("dot -Tpdf /home/jhonatan/Descargas/grafica_maquinas.dot -o  /home/jhonatan/Descargas/grafica_maquinas.pdf")
         
-        return texto
