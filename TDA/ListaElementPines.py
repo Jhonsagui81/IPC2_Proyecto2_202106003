@@ -76,12 +76,13 @@ class ListaElementPin:
         if self.limite > self.maximo  or self.limite < self.maximo:
             self.aprobado = False
 
-    def GraficaElementos(self):
+    def GraficaElementos(self, listaElementos):
         Aux = self.Inicio
         estilo = '''bgcolor="Cyan"'''
         texto = ""
         while Aux != None:
-            texto += "\t\t\t\t\t<td "+estilo+">"+str(Aux.ObtenerSimbolo())+"</td>\n"
+            atomico = listaElementos.NoAtomico(Aux.ObtenerSimbolo())
+            texto += "\t\t\t\t\t<td "+estilo+">"+str(Aux.ObtenerSimbolo())+str("  \n")+str(atomico)+"</td>\n"
             Aux = Aux.Siguiente
         return texto
 

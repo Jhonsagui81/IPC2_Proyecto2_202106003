@@ -75,5 +75,11 @@ class ListaElementos:
             if Auxiliar.Siguiente != None:
                 Retorno += "\n"
             Auxiliar = Auxiliar.Siguiente
-        
         return Retorno
+
+    def NoAtomico(self, simbolo):
+        Aux = self.Inicio
+        while Aux != None:
+            if Aux.ObtenerSimbolo() == simbolo:
+                return Aux.Obtner_Atomico()
+            Aux = Aux.Siguiente

@@ -37,7 +37,7 @@ class ListaMaquinas:
         Retorno += "]"
         return Retorno
 
-    def GenerarDibujo(self):
+    def GenerarDibujo(self, listaElementos):
         estilo = '''bgcolor="#c04343"'''
         texto = "digraph {\n"
         texto += "\ttb1 [\n"
@@ -50,7 +50,7 @@ class ListaMaquinas:
             texto += "\t\t\t\t\t<td "+estilo+" colspan="'"'+str(Auxiliar.ObtenerNOElementos()+1)+'"'">"+str(Auxiliar.ObtenerNombre())+"</td>\n"
             texto += "\t\t\t\t</tr>\n"
             
-            text = Auxiliar.ObtenerListaPines().DibujoPines()
+            text = Auxiliar.ObtenerListaPines().DibujoPines(listaElementos)
             texto += text
 
             texto += "\t\t\t\t<tr>\n"

@@ -287,7 +287,7 @@ v2 = pdf.ShowPdf()
 
 def graficaMaquinas():
     #genera Dibujo
-    list_maquina.GenerarDibujo()
+    list_maquina.GenerarDibujo(list_Elements)
     
     #mostrar Dibujo Ventana
     ventana_maquina = Toplevel(ventana_menu)
@@ -298,7 +298,7 @@ def graficaMaquinas():
     v1.img_object_li.clear()
     
     v2 = v1.pdf_view(ventana_maquina, pdf_location=open("/home/jhonatan/Descargas/grafica_maquinas.pdf","r"), width=77, height=100)
-    v2.pack(pady=(0,0))
+    v2.pack()
     
 #TEMAS DE AYUDA
 def ayuda():
