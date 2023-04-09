@@ -40,3 +40,26 @@ class ListaElemtosCompuestos:
             Auxiliar = Auxiliar.Siguiente
         
         return Retorno
+
+    def buscarELemeto1(self, simbolo):
+        texto = ""
+        contador = 0
+        Auxiliar = self.Inicio
+        while Auxiliar != None:
+            if Auxiliar.ObtenerSimbolo() == simbolo:
+                return True
+            Auxiliar = Auxiliar.Siguiente
+
+    def buscarELemeto(self, simbolo):
+        contador = 0
+        Auxiliar = self.Inicio
+        while Auxiliar != None:
+            if Auxiliar.ObtenerSimbolo() == simbolo:
+                contador += 1
+                texto = str(simbolo)
+            Auxiliar = Auxiliar.Siguiente
+        texto += " se repite "+str(contador)+" Veces +"
+        return contador
+
+    def maximoELementosCOmpuesto(self):
+        return self.Limite

@@ -252,17 +252,22 @@ def VentanaMaquina():
     #obtener lista de elementos del compuesto seleccionado 
     res = combo.get()
     print("se selecciona:" +res)
-    cadena = lista_compuesto.BuscarCompuesto(res)
-    print("Esto es lo que se tine que operar: "+cadena)
-    #Pasar lista de elemetntos a la maquina
-    list_maquina.AsignarCompuestoOperar(cadena)
+    #lista de elementos de compuesto 
+    listacompuet = lista_compuesto.BuscarCompuesto(res)
+    
+
 
     # Crear la etiqueta del título
     tituloMaq.grid(row=0, column=0, padx=10, pady=10, sticky="we")
     # Crear el combobox
     comboMaquina.grid(row=1, column=0, padx=10, pady=10, sticky="we")
 
+    #Pasar lista de elemetntos a la maquina
+    estado = list_maquina.AsignarCompuestoOperar(listacompuet)
+    estados = estado.split(",")
+
     # combo.configure(values=(texto))    #FUNCIONA
+    comboMaquina.configure(values=(estados))
 
     # Crear los botones
     boton1 = tk.Button(AnalizaMaquina, text="Ver Instrucciones",background="green", font=("Arial", 12), command=VentanaMaquina)

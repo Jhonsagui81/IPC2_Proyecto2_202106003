@@ -64,4 +64,13 @@ class Pin:
         return self.id
     def ObtenesListaElementos(self):
         return self.lista_elementos
-        
+
+class listaTrabajo:
+    def __init__(self, id, elemento):
+        self.id = id 
+        self.elemento = elemento
+
+    def ObtenerId(self):
+        return self.id
+    def ObtenesListaElementos(self):
+        return self.elemento

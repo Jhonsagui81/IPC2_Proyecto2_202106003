@@ -65,8 +65,18 @@ class ListaMaquinas:
         file.close()
         os.system("dot -Tpdf /home/jhonatan/Descargas/grafica_maquinas.dot -o  /home/jhonatan/Descargas/grafica_maquinas.pdf")
 
-    def AsignarCompuestoOperar(self, compuesto):
+    def AsignarCompuestoOperar(self, lista_compuesto):
         Aux = self.Inicio
+        Texto = ""
         while Aux != None:
-            Aux.ObtenerListaPines().AnalizarCOmpues(compuesto)
+            estado = Aux.ObtenerListaPines().AnalizarCOmpues(lista_compuesto)
+            if estado:
+                #Maquina si puede procesar el compuesto 
+                
+                Texto += str(Aux.ObtenerNombre())+"--Tarda ...s"+","
+            else:
+                #La maquina no puede procesear el compuesto 
+                Texto += str(Aux.ObtenerNombre())+"--No puede procesar COmpuesto"+","
             Aux = Aux.Siguiente
+        return Texto
+

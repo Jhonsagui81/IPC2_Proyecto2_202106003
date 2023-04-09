@@ -1,5 +1,6 @@
 from TDA.Nodo import *
 from tkinter import messagebox as MessageBox
+from TDA.trabajo import trabajo
 
 class ListaPines:
 
@@ -63,5 +64,21 @@ class ListaPines:
             texto += "\t\t\t\t</tr>\n"
             Auxiliar = Auxiliar.Siguiente
         return texto
-    
+
+    def AnalizarCOmpues(self, lista_compuesto):
+        Auxiliar = self.Inicio
+        estado = True
+        contadorCoincidencia = 0
+        coincidencia = lista_compuesto.maximoELementosCOmpuesto()
+        print("Total compuesto: "+str(coincidencia))
+        while Auxiliar != None:
+            contadorCoincidencia += Auxiliar.ObtenerListaElementos().AnalizarCompuesto(lista_compuesto)
+            Auxiliar = Auxiliar.Siguiente
+        print("El total de coincidencia logradas: "+str(contadorCoincidencia))
+        if contadorCoincidencia == coincidencia:
+            estado = True
+
+        else:
+            estado = False
+        return estado
 

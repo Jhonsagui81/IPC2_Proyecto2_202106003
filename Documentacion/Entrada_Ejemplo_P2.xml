@@ -594,7 +594,7 @@
    </listaElementos>
    <listaMaquinas>
       <Maquina>
-         <nombre>prueba</nombre>
+         <nombre>maquina</nombre>
          <numeroPines>5</numeroPines>
          <numeroElementos>20</numeroElementos>
          <pin>
@@ -745,7 +745,7 @@
             <elemento>Po</elemento>
             <elemento>Au</elemento>
             <elemento>Fe</elemento>
-            <elemento>Cm</elemento>
+            <elemento>He</elemento>
             <elemento>Au</elemento>
             <elemento>Ta</elemento>
          </elementos>

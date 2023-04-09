@@ -10,6 +10,7 @@ class ListaElementPin:
         self.maximo = MaximoElementos
         self.limite = 0
         self.aprobado = True
+        self.maquinaCapaz = True
     
     def Insertar(self, simbolo):
         NuevoNodo = NodoPinesElementos(simbolo)
@@ -84,5 +85,12 @@ class ListaElementPin:
             Aux = Aux.Siguiente
         return texto
 
-    def AnalizarCompuesto(self, compuesto):
-        pass
+    def AnalizarCompuesto(self, lista_compuesto):
+        Auxiliar = self.Inicio
+        contadorCoincidencia = 0
+        while Auxiliar != None:
+            if lista_compuesto.buscarELemeto1(Auxiliar.ObtenerSimbolo()):
+                contadorCoincidencia += lista_compuesto.buscarELemeto(Auxiliar.ObtenerSimbolo())
+                print("En el pin "+str(self.id)+" Existe el elemento: "+str(contadorCoincidencia))
+            Auxiliar = Auxiliar.Siguiente
+        return contadorCoincidencia

@@ -87,4 +87,17 @@ class NodoPines:
     
     def ObtenerListaElementos(self):
         return self.Pin.ObtenesListaElementos()
-        
+
+class NodoTrabajo:
+    def __init__(self, id, elementos):
+        self.trabajo = listaTrabajo(id,elementos)
+        self.Siguiente = None
+
+    def AsignarSiguiente(self, Nodo):
+        self.Siguiente = Nodo
+
+    def ObtenerId(self):
+        return self.trabajo.ObtenerId()
+    
+    def ObtenerListaElementos(self):
+        return self.trabajo.ObtenerListaElementos()
